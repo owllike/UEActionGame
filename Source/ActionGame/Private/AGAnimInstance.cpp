@@ -3,3 +3,7 @@
 
 #include "AGAnimInstance.h"
 
+UAGAnimInstance::UAGAnimInstance()
+{
+	CurrentPawnSpeed = 0.f;
+}

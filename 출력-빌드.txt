@@ -1,0 +1,14 @@
+﻿1>------ 빌드 시작: 프로젝트: ActionGame, 구성: Development_Editor x64 ------
+2>------ 빌드 생략: 프로젝트: UE4, 구성: BuiltWithUnrealBuildTool Win32 ------
+2>이 솔루션 구성에 대해 빌드하도록 선택된 프로젝트가 없습니다. 
+1>Using 'git status' to determine working set for adaptive non-unity build (C:\Owllike\UEActionGame).
+1>Building ActionGameEditor...
+1>Using Visual Studio 2019 14.25.28610 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.25.28610) and Windows 10.0.18362.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+1>Building 4 actions with 32 processes...
+1>  [1/4] AGPlayerCharacter.cpp
+1>C:\Owllike\UEActionGame\Source\ActionGame\Private\AGPlayerCharacter.cpp(15): error C2664: 'void USceneComponent::SetupAttachment(USceneComponent *,FName)': �μ� 1��(��) 'UCapsuleComponent *'���� 'USceneComponent *'(��)�� ��ȯ�� �� �����ϴ�.
+1>  C:\Owllike\UEActionGame\Source\ActionGame\Private\AGPlayerCharacter.cpp(15): note: ����Ų ������ ������ �����ϴ�. ��ȯ�Ϸ��� reinterpret_cast, C ��Ÿ�� ĳ��Ʈ �Ǵ� �Լ� ��Ÿ�� ĳ��Ʈ�� �ʿ��մϴ�.
+1>  C:\Program Files\Epic Games\UE_4.24\Engine\Source\Runtime\Engine\Classes\Components/SceneComponent.h(660): note: 'USceneComponent::SetupAttachment' ������ �����Ͻʽÿ�.
+1>C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.MakeFile.Targets(44,5): error MSB3075: ""C:\Program Files\Epic Games\UE_4.24\Engine\Build\BatchFiles\Build.bat" ActionGameEditor Win64 Development -Project="C:\Owllike\UEActionGame\ActionGame.uproject" -WaitMutex -FromMsBuild" 명령이 종료되었습니다(코드: 5). 이 명령을 실행할 권한이 있는지 확인하세요.
+1>"ActionGame.vcxproj" 프로젝트를 빌드했습니다. - 실패
+========== 빌드: 성공 0, 실패 1, 최신 0, 생략 1 ==========

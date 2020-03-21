@@ -14,4 +14,10 @@ class ACTIONGAME_API UAGAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 	
+public:
+	UAGAnimInstance();
+
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta=(AllowPrivateAccess=true))
+	float CurrentPawnSpeed;
 };

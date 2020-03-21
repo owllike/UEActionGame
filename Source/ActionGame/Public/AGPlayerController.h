@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "ActionGame.h"
 #include "GameFramework/PlayerController.h"
 #include "AGPlayerController.generated.h"
 
