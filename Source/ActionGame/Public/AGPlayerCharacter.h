@@ -33,6 +33,19 @@ public:
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	/**
+	@fn bool GetCursorLocation(_Outptr_result_maybenull_ AAGCharacter* TargetCharacter, _Outref_ FVector& TargetLocation);
+	@brief Get mouse cursor location on world.
+	@date 2020/03/28
+	@author Lee JeongGil (lee-jeonggil@naver.com)
+	@param TargetCharacter Character pointer to be returned.
+	@param TargetLocation Vector ref to be returned.
+	@return If there is a character, return true. Else, return false and TargetCharacter is nullptr.
+	@remark Used to get mouse cursor location. If there is a character under the cursor, return true and TargetCharamcter points nullptr.
+	@todo AAGCharacter should be changed. After enemy or destructible object class added, change to them. TraceChannel should be added.
+	*/
+	bool GetCursorLocation(_Outptr_result_maybenull_ AAGCharacter* TargetCharacter, _Outref_ FVector& TargetLocation);
+
 	void Front(float NewAxisValue);
 	void Right(float NewAxisValue);
 	void TurnClockwise(float NewAxisValue);

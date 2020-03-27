@@ -43,6 +43,19 @@ void AAGPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 720.f, 0.f);
 }
 
+bool AAGPlayerCharacter::GetCursorLocation(AAGCharacter* TargetCharacter, FVector& TargetLocation)
+{
+	FHitResult* Hit;
+	APlayerController* PC;
+	PC = Cast<APlayerController>(GetController());
+	if (PC)
+	{
+		//PC->GetHitResultUnderCursorByChannel
+	}
+
+	return false;
+}
+
 void AAGPlayerCharacter::Front(float NewAxisValue)
 {
 	AddMovementInput(FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::X), NewAxisValue);
