@@ -53,6 +53,13 @@ bool AAGPlayerCharacter::GetCursorLocation(AAGCharacter* TargetCharacter, FVecto
 		//PC->GetHitResultUnderCursorByChannel
 	}
 
+	//if (Hit.bBlockingHit)
+	//{
+	//	ReturnLocation = Hit.ImpactPoint;
+	//
+	//	return true;
+	//}
+
 	return false;
 }
 
