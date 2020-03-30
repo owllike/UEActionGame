@@ -2,83 +2,59 @@
 
 
 #include "AGPlayerCharacter.h"
+#include "Components/DecalComponent.h"
 
 AAGPlayerCharacter::AAGPlayerCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bStartWithTickEnabled = true;
 
+	// Don't rotate character to camera direction
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
+	// Configure character movement
+	GetCharacterMovement()->bOrientRotationToMovement = true;	// Rotate character to moving direction
+	//GetCharacterMovement()->RotationRate = FRotator(0.f, 720.f, 0.f);
+	GetCharacterMovement()->bConstrainToPlane = true;
+	GetCharacterMovement()->bSnapToPlaneAtStart = true;
+
+	// Create a SpringArm
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SPRINGARM"));
-	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("CAMERA"));
-
 	SpringArm->SetupAttachment(GetCapsuleComponent());
+	SpringArm->SetUsingAbsoluteRotation(true);	// Don't want arm to rotate when character does
+	//SpringArm->TargetArmLength = 800.f;
+	//SpringArm->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
+	SpringArm->bDoCollisionTest = false;	// Don't want to pull camera in when it collides with level
+
+	// Create a Camera
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("CAMERA"));
 	Camera->SetupAttachment(SpringArm);
+	Camera->bUsePawnControlRotation = false;	// Camera does not rotate relative to arm
+
+	//// Create a decal in the world to show the cursor's location
+	//CursorToWorld = CreateDefaultSubobject<UDecalComponent>("CURSORTOWORLD");
+	//CursorToWorld->SetupAttachment(GetCapsuleComponent());
+	//static ConstructorHelpers::FObjectFinder<UMaterial> DecalMaterialAsset(TEXT("Material'/Game/TopDownCPP/Blueprints/M_Cursor_Decal.M_Cursor_Decal'"));
+	//if (DecalMaterialAsset.Succeeded())
+	//{
+	//	CursorToWorld->SetDecalMaterial(DecalMaterialAsset.Object);
+	//}
+	//CursorToWorld->DecalSize = FVector(16.0f, 32.0f, 32.0f);
+	//CursorToWorld->SetRelativeRotation(FRotator(90.0f, 0.0f, 0.0f).Quaternion());
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -GetDefaultHalfHeight()), FRotator(0.f, -90.f, 0.f));
+}
+
+void AAGPlayerCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
 }
 
 void AAGPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Camera Settings
-	SpringArm->TargetArmLength = CameraArmLength;
-	SpringArm->SetRelativeRotation(FRotator::ZeroRotator);
-	SpringArm->bUsePawnControlRotation = true;
-	SpringArm->bInheritPitch = true;
-	SpringArm->bInheritRoll = true;
-	SpringArm->bInheritYaw = true;
-	SpringArm->bDoCollisionTest = true;
-	bUseControllerRotationYaw = true;
-}
-
-void AAGPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	PlayerInputComponent->BindAxis(TEXT("Front"), this, &AAGPlayerCharacter::Front);
-	PlayerInputComponent->BindAxis(TEXT("Right"), this, &AAGPlayerCharacter::Right);
-	PlayerInputComponent->BindAxis(TEXT("TurnClockWise"), this, &AAGPlayerCharacter::TurnClockwise);
-	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &AAGPlayerCharacter::LookUp);
-	GetCharacterMovement()->bOrientRotationToMovement = false;
-	GetCharacterMovement()->RotationRate = FRotator(0.f, 720.f, 0.f);
-}
-
-bool AAGPlayerCharacter::GetCursorLocation(AAGCharacter* TargetCharacter, FVector& TargetLocation)
-{
-	FHitResult* Hit;
-	APlayerController* PC;
-	PC = Cast<APlayerController>(GetController());
-	if (PC)
-	{
-		//PC->GetHitResultUnderCursorByChannel
-	}
-
-	//if (Hit.bBlockingHit)
-	//{
-	//	ReturnLocation = Hit.ImpactPoint;
-	//
-	//	return true;
-	//}
-
-	return false;
-}
-
-void AAGPlayerCharacter::Front(float NewAxisValue)
-{
-	AddMovementInput(FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::X), NewAxisValue);
-}
-
-void AAGPlayerCharacter::Right(float NewAxisValue)
-{
-	AddMovementInput(FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::Y), NewAxisValue);
-}
-
-void AAGPlayerCharacter::TurnClockwise(float NewAxisValue)
-{
-	AddControllerYawInput(NewAxisValue);
-}
-
-void AAGPlayerCharacter::LookUp(float NewAxisValue)
-{
-	AddControllerPitchInput(NewAxisValue);
 }

@@ -14,4 +14,18 @@ class ACTIONGAME_API AAGPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	AAGPlayerController();
+
+protected:
+	bool bIsTargetUpdated = false;
+
+	virtual void PlayerTick(float DeltaTime) override;
+	virtual void SetupInputComponent() override;
+
+	void MoveOrUsePrimarySkill();
+	void SetNewMoveDestination(const FVector DestLocation);
+
+	void OnLeftMousePressed();
+	void OnLeftMouseReleased();
 };
